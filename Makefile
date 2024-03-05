@@ -1,35 +1,33 @@
 CC = cc
-FLAGS = -Wall -Wextra -Werror
-RM = rm -rf
-AR = ar rcs
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
+NAME = server
+CLIENT = client
 
-SRC_c = client.c
-SRC_s = server.c
+SRC_c = client.c utils2.c
+SRC_s = server.c utils.c utils2.c
 
-OBJ_c = $(SRC_c:.c=.o)
-OBJ_s = $(SRC_s:.c=.o)
+C_OBJ = $(SRC_c:.c=.o)
+S_OBJ = $(SRC_s:.c=.o)
 
 
-ALL = $(OBJ_c) $(OBJ_s)
+all: $(NAME) $(CLIENT)
 
-NAME = server client
+$(NAME): $(S_OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
 
-all : $(NAME)
+$(CLIENT): $(C_OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
 
 %.o : %.c minitalk.h
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-server : $(SRC_s)
-	$(CC) $(FLAGS) $(SRC_s) -o $@
+clean:
+	$(RM) $(C_OBJ) $(S_OBJ)
 
-client : $(SRC_c)
-	$(CC) $(FLAGS) $(SRC_c) -o $@
+fclean: clean
+	$(RM) $(NAME) $(CLIENT)
 
-
-clean :
-	$(RM) $(ALL)
-fclean : clean
-	$(RM) $(NAME)
-re : fclean all
+re: fclean all
 
 .PHONY : all clean fclean re

@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/05 04:38:00 by asebrani          #+#    #+#             */
+/*   Updated: 2024/03/05 05:50:24 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
+
 static int	get_num_len(int n)
 {
 	int	len;
@@ -9,7 +22,7 @@ static int	get_num_len(int n)
 		len++;
 		n = -n;
 	}
-	while (n >= 10) 
+	while (n >= 10)
 	{
 		len++;
 		n /= 10;
@@ -38,6 +51,7 @@ char	*ft_itoa(int n)
 	*str = *str - 3 * (n < 0);
 	return (str);
 }
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
@@ -50,6 +64,7 @@ void	*ft_calloc(size_t count, size_t size)
 	ft_bzero(ptr, (size * count));
 	return (ptr);
 }
+
 void	ft_bzero(void *s, size_t n)
 {
 	size_t	i;

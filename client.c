@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 06:00:36 by asebrani          #+#    #+#             */
-/*   Updated: 2024/03/04 01:48:18 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/03/05 05:56:57 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	send_signal(int pid, unsigned char character)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(300);
+		usleep(500);
 	}
 }
 
@@ -40,7 +40,12 @@ int	main(int argc, char **argv)
 		write(1, "Usage:<server-pid> <string>\n", 30);
 		return (0);
 	}
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
+	if (argv[1][0] == '-' || argv[1][0] == '0')
+	{
+		write(1, "Invalid pid", 11);
+		return (0);
+	}
 	while (*argv[2])
 		send_signal(pid, (unsigned char)*argv[2]++);
 	send_signal(pid, '\0');
